@@ -11,14 +11,14 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface AudioFileDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun addAudioFile(vararg audioFile: AudioFile)
+    suspend fun addAudioFile(vararg audioFile: AudioFile)
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insertAll(audioFiles:List<AudioFile>)
+    suspend fun insertAll(audioFiles:List<AudioFile>)
     @Delete
-    fun deleteAudioFile(vararg audioFile: AudioFile)
+    suspend fun deleteAudioFile(audioFile: AudioFile)
 
-    @Query("SELECT * FROM user_table ORDER BY ID ASC")
+    @Query("SELECT * FROM Audio_File ORDER BY id ASC")
     fun getAll(): Flow<List<AudioFile>>
 
 

@@ -1,6 +1,5 @@
 package com.selfdev.mp3player.data
 
-import InsertAllAsyncTask
 import android.content.Context
 import android.provider.MediaStore
 import android.widget.Toast
@@ -9,11 +8,11 @@ import javax.inject.Inject
 
 
 
-class ContentResolverHelper @Inject constructor(@ApplicationContext val context: Context) {
+class ContentResolverHelper(context: Context) {
 
-    fun searchAllAudios() {
+    private val context = context
+    fun searchAllAudios() : List<AudioFile> {
         val audioList = mutableListOf<AudioFile>()
-        val audioFileDao: AudioFileDao = AudioDatabase.getDatabase(context = context).audioFileDao()
 
         val uri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI
         val projection = arrayOf(
@@ -50,8 +49,8 @@ class ContentResolverHelper @Inject constructor(@ApplicationContext val context:
                 Toast.LENGTH_LONG
             ).show()
             println("there are ${audioList.size} audio files in your system")
-            InsertAllAsyncTask(audioFileDao, audioList).execute()
-        }
 
+        }
+    return audioList
     }
 }
